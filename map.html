@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.13/vue-resource.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
-    <script src="/map.js"></script>
+    <!--<script src="/map.js"></script>-->
     <link  type="text/css" rel="stylesheet" href="/map.css" /> 
     <title>Map</title>
 </head>
 <body>
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
+    <div id="app">
+        <h3>My Google Maps Demo {{test}}</h3>
+        <button v-on:click="getMapScript">Get Map</button>
+        <input type="text" v-model.number="startLat" placeholder="Starting Lattitude" /> {{startLat}}
+        <input type="text" v-model.number="startLng" placeholder="Starting Longitude" />{{startLng}}
+
+        <div id="map"></div>
+    </div>
+    <script src="/main.js"></script>
 </body>
 </html>

@@ -11,17 +11,6 @@ $.get( "/googleMapsApiKey", function ( googleMapsApiKey ) {
         console.log( "Google maps script loaded" );
     });
 });
-
-
-//var uluru = { lat: -25.363, lng: 131.044 };
-//var sydney = { lat: -33.868937, lng: 151.207788 };
-//var brisbane = { lat: -27.465970, lng: 153.027510 };
-
-
-//var wayPoints = [{ location: "Brisbane, Queensland", stopover: true }, { location: "Bundaberg, Queensland", stopover: true },
-//    { location: new google.maps.LatLng( - 24.990553, 151.954581 ), stopover: true }]
-
-
     
 
 function initMap() {
