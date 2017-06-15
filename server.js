@@ -11,5 +11,12 @@ app.get( "/googleMapsApiScript", function ( req, res ) {
     res.send( googleMapsScriptUrlWithApiKey );
 });
 
+
+app.get( "/googleMapsApiKey", function ( req, res ) {
+    var googleMapsApiKey = secrets.googleMapsApiKey;
+    res.status( 200 );
+    res.send( googleMapsApiKey );
+});
+
 app.listen( 3000 );
 

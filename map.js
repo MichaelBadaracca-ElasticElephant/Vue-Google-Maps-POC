@@ -4,10 +4,44 @@ $.ajaxSetup( {
     cache: true
 });
 
-$.get( "/googleMapsApiScript", function ( googleMapsApiScript ) {
+
+
+function setHeader( xhr ) {
+
+    xhr.setRequestHeader('Access-Control-Allow-Origin');
+}
+
+$.get( "/googleMapsApiKey", function ( googleMapsApiKey ) {
+
+
+    var googleMapsApiScript = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap`;
+
     $.getScript( googleMapsApiScript, function ( data, textStatus, jqxhr ) {
         console.log( "Google maps script loaded" );
+        var myData;
+        $.ajax( {
+
+            url: `https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood4&key=${googleMapsApiKey}`,
+            data: myData,
+            type: 'GET',
+            crossDomain: true,
+            dataType: 'jsonp',
+            success: function (data) { console.log( "Success", data ); },
+            error: function (data) { console.log( "Failed", data ); },
+            beforeSend: setHeader
+        });
+
+
+
+
+        //$.get( `https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood4&key=${googleMapsApiKey}`, function( data ){
+        //    console.log( data );
+
+        //})
+
     });
+
+
 });
 
 function initMap() {
