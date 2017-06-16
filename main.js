@@ -47,6 +47,12 @@ var mainAppVm = new Vue( {
         }
 
     },
+    watch: {
+        // whenever question changes, this function will run
+        mapLocations: function () {
+            this.drawMap();
+        }
+    },
     methods: {
 
         getMapScript: function () {
@@ -57,9 +63,9 @@ var mainAppVm = new Vue( {
                 });
             });
         },
-        refreshMap: function () {
-            google.maps.event.trigger( this.map, 'resize' );
-        },
+        //refreshMap: function () {
+        //    google.maps.event.trigger( this.map, 'resize' );
+        //},
 
         initMap: function () {
 
