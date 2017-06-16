@@ -4,7 +4,8 @@ var mainAppVm = new Vue( {
         test: "TEST",
         startLat: -25.363,
         startLng: 131.044,
-        //mapLocations: {}
+        //directionsDisplay: null,
+        //directionsService: null
     },
 
 
@@ -15,9 +16,17 @@ var mainAppVm = new Vue( {
                 sydney: { lat: -33.868937, lng: 151.207788 },
                 brisbane: { lat: -27.465970, lng: 153.027510 },
                 wayPoints: [{ location: "Brisbane, Queensland", stopover: true },
-                    { location: new google.maps.LatLng( - 24.990553, 151.954581 ), stopover: true }, { location: "Bundaberg, Queensland", stopover: true }]
+                { location: new google.maps.LatLng( - 24.990553, 151.954581 ), stopover: true }, { location: "Bundaberg, Queensland", stopover: true }]
             }
+        },
+        map: function () {
+            console.log("map recomputed")
+            return new google.maps.Map( document.getElementById( 'map' ), {
+                zoom: 4,
+                center: this.mapLocations.uluru
+            });
         }
+
     },
     methods: {
 
@@ -29,6 +38,11 @@ var mainAppVm = new Vue( {
                 });
             });
         },
+        refreshMap: function () {
+            console.log( "Refreshing Map", this.mapLocations )
+            console.log("map",this.map)
+            google.maps.event.trigger( this.map, 'resize' );
+        },
 
         initMap: function () {
             //this.mapLocations = {
@@ -39,30 +53,31 @@ var mainAppVm = new Vue( {
             //    { location: new google.maps.LatLng( - 24.990553, 151.954581 ), stopover: true }, { location: "Bundaberg, Queensland", stopover: true }]
             //}
 
-            var map = new google.maps.Map( document.getElementById( 'map' ), {
-                zoom: 4,
-                center: this.mapLocations.uluru
-            });
+            //var map = new google.maps.Map( document.getElementById( 'map' ), {
+            //    zoom: 4,
+            //    center: this.mapLocations.uluru
+            //});
 
-            var directionsDisplay = new google.maps.DirectionsRenderer;
-            var directionsService = new google.maps.DirectionsService;
-            directionsDisplay.setMap( map );
+            directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsService = new google.maps.DirectionsService;
+            directionsDisplay.setMap( this.map );
             this.calculateAndDisplayRoute( directionsService, directionsDisplay, this.mapLocations );
 
 
             var uluruMarker = new google.maps.Marker( {
                 position: this.mapLocations.mapLocationsuluru,
-                map: map
+                map: this.map
             });
             var sydneyMarker = new google.maps.Marker( {
                 position: this.mapLocations.sydney,
-                map: map
+                map: this.map
             });
             var brisbaneMarker = new google.maps.Marker( {
                 position: this.mapLocations.brisbane,
-                map: map
+                map: this.map
             });
         },
+
         calculateAndDisplayRoute: function ( directionsService, directionsDisplay, mapLocations ) {
             console.log( "Map Locations", this.mapLocations );
 

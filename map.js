@@ -50,6 +50,8 @@ function initMap() {
     });
 }
 
+
+
 function calculateAndDisplayRoute( directionsService, directionsDisplay, mapLocations ) {
     var selectedMode = "DRIVING"
     directionsService.route( {
